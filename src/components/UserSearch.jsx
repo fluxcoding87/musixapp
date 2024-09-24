@@ -22,7 +22,7 @@ export default function UserSearch() {
     if (!playingTrack) return;
 
     axios
-      .get("http://localhost:3001/lyrics", {
+      .get("https://musixapp-api.onrender.com/lyrics", {
         params: {
           track: playingTrack.name,
           artist: playingTrack.artists[0],
