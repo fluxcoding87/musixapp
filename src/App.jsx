@@ -1,11 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/RootLayout.jsx";
 import HomePage from "./pages/Home.jsx";
-import UserSearch from "./components/UserSearch.jsx";
+// import UserSearch from "./components/UserSearch.jsx";
 import UserHome, { loader as userCodeLoader } from "./pages/UserHome.jsx";
 import UserContextProvider from "./store/UserContext.jsx";
-import NavUserHomePage from "./pages/NavUserHome.jsx";
-import UserPlaylistPage from "./pages/UserPlaylist.jsx";
+// import NavUserHomePage from "./pages/NavUserHome.jsx";
+// import UserPlaylistPage from "./pages/UserPlaylist.jsx";
+import { lazy, Suspense } from "react";
+
+const UserSearch = lazy(() => import("./components/UserSearch.jsx"));
+const NavUserHomePage = lazy(() => import("./pages/NavUserHome.jsx"));
+const UserPlaylistPage = lazy(() => import("./pages/UserPlaylist.jsx"));
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,15 +28,27 @@ const router = createBrowserRouter([
       },
       {
         path: "search",
-        element: <UserSearch />,
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <UserSearch />
+          </Suspense>
+        ),
       },
       {
         path: "home",
-        element: <NavUserHomePage />,
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <NavUserHomePage />
+          </Suspense>
+        ),
       },
       {
         path: "playlist",
-        element: <UserPlaylistPage />,
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <UserPlaylistPage />
+          </Suspense>
+        ),
       },
     ],
   },
